@@ -1,0 +1,44 @@
+<mat-toolbar color="primary">
+  <span>
+    <a routerLink="/">Dubai News Post</a>
+  </span>
+  <span class="spacer"></span>
+  <span>
+      <ul>
+          <li>
+            <a mat-button routerLink="/">
+              <mat-icon aria-hidden="false">home</mat-icon>
+              All Posts
+            </a>
+          </li>
+          <li *ngIf="userIsAuthenticated">
+            <a mat-button routerLink="/create" routerLinkActive="mat-accent">
+              <mat-icon aria-hidden="false">post_add</mat-icon>
+              New Post
+            </a>
+          </li>
+      </ul>
+  </span>
+  <span class="spacer"></span>
+  <ul>
+    <li *ngIf="!userIsAuthenticated">
+      <a mat-button routerLink="/auth/login" routerLinkActive="mat-accent">
+        <mat-icon aria-hidden="false">vpn_key</mat-icon>
+        Login
+      </a>
+    </li>
+    <li *ngIf="!userIsAuthenticated">
+      <a mat-button routerLink="/auth/signup" routerLinkActive="mat-accent">
+        <mat-icon aria-hidden="false">person_add</mat-icon>
+        Signup
+      </a>
+    </li>
+    <li *ngIf="userIsAuthenticated">
+      <button mat-button (click)="onLogout()">
+        <mat-icon aria-hidden="false">exit_to_app</mat-icon>
+        Logout
+      </button>
+    </li>
+  </ul>
+</mat-toolbar>
+

@@ -1,0 +1,43 @@
+:host {
+  display: block;
+  margin-top: 1rem;
+}
+mat-card {
+  margin-top: 16px;
+}
+mat-card-content {
+  margin: 0 16px 0 16px;
+  padding-top: 16px;
+}
+mat-spinner {
+  margin: auto;
+}
+.mat-action-row {
+  display:flex;
+  justify-content:flex-end;
+}
+mat-paginator {
+  margin-top: 1rem;
+}
+
+.info-text {
+  text-align: center;
+}
+
+.post-image {
+  width: 100%;
+}
+
+.post-image img {
+  width: 100%;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+}
+
+mat-form-field {
+  font-size: 14px;
+}
+
+mat-form-field {
+  padding: 0 16px 0 16px;
+  flex: 1 1 auto;
+}

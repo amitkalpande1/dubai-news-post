@@ -1,0 +1,7 @@
+{
+  "env": {
+    "MONGO_ATLAS_PW": "Kalpande123",
+    "ELASTICSEARCH_PW": "4ZHX2arYrUWOeCj4cIr38Mt3",
+    "JWT_KEY": "secret_this_should_be_longer"
+  }
+}

@@ -1,0 +1,53 @@
+<mat-toolbar>
+  <mat-form-field>
+      <mat-label>Find by user</mat-label>
+      <mat-select multiple #users_ref (selectionChange)="filterBy('creators', users_ref.value)">
+        <mat-option *ngFor="let user of users"
+          value="{{user._id}}">
+          {{user._source.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Find by topic</mat-label>
+      <mat-select multiple #topic_ref (selectionChange)="filterBy('topics',topic_ref.value)">
+        <mat-option *ngFor="let topic of topics"
+          value="{{topic.key}}">
+          {{topic.key?.toUpperCase()}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Search on title/content</mat-label>
+      <input matInput type="text" #searchQuery_ref placeholder="Search text">
+    </mat-form-field>
+    <button mat-raised-button color="accent" type="button" (click)="filterBy('searchQuery',searchQuery_ref.value)">Search</button>
+</mat-toolbar>
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+<div *ngIf="posts.length > 0 && !isLoading">
+  <mat-card *ngFor="let post of posts">
+    <mat-card-header>
+      <mat-card-title>
+        {{ post.title }}
+      </mat-card-title>
+      <mat-card-subtitle>
+        {{ post.topic?.toUpperCase() }}
+      </mat-card-subtitle>
+    </mat-card-header>
+    <mat-divider></mat-divider>
+    <mat-card-content>
+      <p>{{ post.content }}</p>
+    </mat-card-content>
+    <mat-action-row class="mat-action-row" *ngIf="userIsAuthenticated && userId === post.creator">
+      <a mat-button color="primary" [routerLink]="['/edit', post.id]">EDIT</a>
+      <button mat-button color="warn" (click)="onDelete(post.id)">DELETE</button>
+    </mat-action-row>
+  </mat-card>
+</div>
+<mat-paginator [length]="totalPosts" [pageSize]="postsPerPage" [pageSizeOptions]="pageSizeOptions" (page)="onChangedPage($event)"
+  *ngIf="posts.length > 0"></mat-paginator>
+<p class="info-text mat-body-1" *ngIf="posts.length <= 0 && !isLoading">No posts added yet!
+  <a *ngIf="userIsAuthenticated" color="primary" mat-button routerLink="/create">Be the first, Add new Post!</a>
+  <a *ngIf="!userIsAuthenticated" color="primary" mat-button routerLink="/auth/login">Login to Add new post.</a>
+</p>
+
