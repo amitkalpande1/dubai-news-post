@@ -2,9 +2,32 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.1.
 
-## Development server
+
+## Docker
+
+To create the images and launch the containers -
+
+`docker-compose up --build -d`
+
+App should be running and you can access using `http:\\localhost`
+
+## Rebuild docker incase code changes
+In case of code changes on frontend, you need to run 
+`ng build --prod` 
+this will create distribution folder into backend\frontend folder
+
+then run again 
+`docker-compose up --build -d`
+
+## Development server ( FrontEnd )
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+
+
+## Development server ( BackEnd )
+
+Run `npm run start:server` for a dev server. apis will to be available `http://localhost:3000/api/`. The app will automatically reload if you change any of the source files.
+
 
 ## Code scaffolding
 
