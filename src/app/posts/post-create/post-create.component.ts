@@ -27,7 +27,9 @@ export class PostCreateComponent implements OnInit, OnDestroy {
     {value: 'entertainment', viewValue: 'Entertainment'},
     {value: 'business', viewValue: 'Business'},
     {value: 'tourism', viewValue: 'Tourism'},
-    {value: 'sports', viewValue: 'Sports'}
+    {value: 'sports', viewValue: 'Sports'},
+    {value: 'health', viewValue: 'Health'},
+    {value: 'funny', viewValue: 'Funny'}
   ];
 
   constructor(

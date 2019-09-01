@@ -39,7 +39,7 @@ export class PostListComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.isLoading = true;
-    this.postsService.getPosts(this.postsPerPage, this.currentPage, null);
+
     this.postsService.getAllUsersHavingPosts();
     this.postsService.getTopics();
 
@@ -48,13 +48,13 @@ export class PostListComponent implements OnInit, OnDestroy {
     .subscribe(usersData => {
       this.isLoading = false;
       this.users = usersData.users;
+      this.postsService.getPosts(this.postsPerPage, this.currentPage, null);
     });
 
     this.topicsSub = this.postsService
     .getTopicUpdateListener()
     .subscribe(topicsData => {
       this.isLoading = false;
-      console.log(topicsData.topics);
       this.topics = topicsData.topics;
     });
     this.userId = this.authService.getUserId();
@@ -64,6 +64,12 @@ export class PostListComponent implements OnInit, OnDestroy {
         this.isLoading = false;
         this.totalPosts = postData.postCount;
         this.posts = postData.posts;
+        this.posts =  this.join(this.users, this.posts, '_id', 'creator', function(post, user) {
+          return {
+              ...post,
+              creator: (user !== undefined) ? user._source.name : null
+          };
+        });
       });
     this.userIsAuthenticated = this.authService.getIsAuth();
     this.authStatusSub = this.authService
@@ -72,6 +78,22 @@ export class PostListComponent implements OnInit, OnDestroy {
         this.userIsAuthenticated = isAuthenticated;
         this.userId = this.authService.getUserId();
       });
+  }
+  join( lookupTable: [], mainTable: [], lookupKey: String, mainKey: String, select) {
+    const l: number = lookupTable.length,
+        m: number = mainTable.length,
+        lookupIndex = [],
+        output = [];
+    for (let i = 0; i < l; i++) { // loop through l items
+      const row = lookupTable[i];
+        lookupIndex[row[lookupKey]] = row; // create an index for lookup table
+    }
+    for (let j = 0; j < m; j++) { // loop through m items
+      const y = mainTable[j];
+      const x = lookupIndex[y[mainKey]]; // get corresponding row from lookupTable
+        output.push(select(y, x)); // select only the columns you need
+    }
+    return output;
   }
   filterBy(key: string, value: string) {
     if (key !== 'searchQuery') {
