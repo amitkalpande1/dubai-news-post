@@ -79,19 +79,19 @@ export class PostListComponent implements OnInit, OnDestroy {
         this.userId = this.authService.getUserId();
       });
   }
-  join( lookupTable: [], mainTable: [], lookupKey: String, mainKey: String, select) {
-    const l: number = lookupTable.length,
-        m: number = mainTable.length,
-        lookupIndex = [],
-        output = [];
+  join( lookupTable: [], mainTable: Post[], lookupKey: string, mainKey: string, select) {
+      const l: number = lookupTable.length,
+      m: number = mainTable.length,
+      lookupIndex = [],
+      output = [];
     for (let i = 0; i < l; i++) { // loop through l items
       const row = lookupTable[i];
-        lookupIndex[row[lookupKey]] = row; // create an index for lookup table
+      lookupIndex[row[lookupKey]] = row; // create an index for lookup table
     }
     for (let j = 0; j < m; j++) { // loop through m items
       const y = mainTable[j];
       const x = lookupIndex[y[mainKey]]; // get corresponding row from lookupTable
-        output.push(select(y, x)); // select only the columns you need
+      output.push(select(y, x)); // select only the columns you need
     }
     return output;
   }
