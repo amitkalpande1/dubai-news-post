@@ -292,7 +292,7 @@ exports.getAllUsersHavingPosts = (req, res, next) => {
       })
     })
     .catch(error => {
-      // console.dir(error.body.error);
+      console.dir(error.body.error);
       res.status(500).json({
         message: "Fetching Users with post failed!"
       });
