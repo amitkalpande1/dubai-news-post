@@ -9,6 +9,7 @@ To create the images and launch the containers -
 
 `docker-compose up --build -d`
 
+App should be running and you can access using `http:\\localhost`
 
 ## Rebuild docker incase code changes
 In case of code changes on frontend, you need to run 
